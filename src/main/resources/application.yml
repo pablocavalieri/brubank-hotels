@@ -1,0 +1,29 @@
+server:
+  servlet:
+    context-path: /app
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:sqlite:flight-reservations.db
+    driver-class-name=: org.sqlite.JDBC
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLiteDialect
+    hibernate:
+      ddl-auto: create-drop
+      show_sql: true
+      formal_sql: true
+
+foursquare:
+  venues:
+    host: https://api.foursquare.com/v2/venues
+    clientId: JBTQUR1XP4LGV21QMYX40XF2PBYACBZAJWPVSKFX5UZIJGMS
+    clientSecret: BXJ0QJ42HDSUAQKUZC5LEC3HW0X120S0NA3TI51O2XAG4ZWQ
+    version: 20190709
+
+brubank:
+  flights:
+    reservations:
+      host: https://brubank-flights.herokuapp.com
