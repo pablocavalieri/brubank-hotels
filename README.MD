@@ -18,3 +18,5 @@
 * La base de datos es un SqlLite, cuando, dada la naturaleza de los datos, convendría usar una base de datos de documentos (Cassandra con partitionKeypor destino?). No lo hice para no 'pelearme' con la portabilidad. No encontré base de datos de documentos para usar o en memoria o con archivo. Podría haber utilizado docker con el docker-compose, pero preferí simplificar
 * Hay que normalizar las respuestas, el caso más urgente es el destino de las reservas del servicio de Brubank
 * Si las reservas crecen, hay que paginar
+* Mejor manejo de exepciones
+* Definiciones del contrato. Qué hacer cuando no hay reservas para el destino? Devolver los Hoteles?
