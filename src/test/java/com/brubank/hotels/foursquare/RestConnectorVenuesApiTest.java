@@ -64,7 +64,7 @@ public class RestConnectorVenuesApiTest {
     boolean exceptionTrowed = false;
 
     try {
-      venuesApi.searchHotelsNearCity(" ");
+      venuesApi.searchHotelsNearCity("");
     } catch (IllegalArgumentException e) {
       assertEquals("The City is blank, it's not valid", e.getMessage());
       exceptionTrowed = true;

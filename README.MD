@@ -20,3 +20,4 @@
 * Si las reservas crecen, hay que paginar
 * Mejor manejo de exepciones
 * Definiciones del contrato. Qué hacer cuando no hay reservas para el destino? Devolver los Hoteles?
+* Sirve el cache en para el servicio de foursquare? Quizás un Redis es mejor. Cual es el ratio hit/miss?

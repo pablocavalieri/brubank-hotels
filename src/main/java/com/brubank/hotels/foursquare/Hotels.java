@@ -1,10 +1,12 @@
 package com.brubank.hotels.foursquare;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import com.brubank.hotels.api.Hotel;
 import com.brubank.hotels.api.HotelLocation;
 import com.brubank.hotels.api.HotelName;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.apache.commons.lang3.Validate;
 
 /**
  * This class represents the Hotels from the foursquare Venues Api
@@ -90,8 +92,8 @@ public class Hotels {
   }
 
   public Hotel toApiHotel() {
-    Validate.notEmpty(getName(), "Name not valid");
-    Validate.notNull(getLocation(), "Location not valid");
+    checkArgument(!getName().isEmpty(), "Name not valid");
+    checkNotNull(getLocation(), "Location not valid");
 
     return Hotel.newInstance(
         HotelName.newLocalInstance(getName()),

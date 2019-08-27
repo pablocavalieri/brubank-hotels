@@ -1,5 +1,8 @@
 package com.brubank.hotels.foursquare;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * Configuration properties for {@link RestConnectorVenuesApi} connection
  */
@@ -22,6 +25,8 @@ public class VenuesApiConfiguration {
   }
 
   public void setHost(String host) {
+    checkNotNull(host, "Host is not valid");
+    checkArgument(!host.isEmpty(), "Host is not valid");
     this.host = host;
   }
 
@@ -30,6 +35,8 @@ public class VenuesApiConfiguration {
   }
 
   public void setClientId(String clientId) {
+    checkNotNull(clientId, "ClientId is not valid");
+    checkArgument(!clientId.isEmpty(), "ClientId is not valid");
     this.clientId = clientId;
   }
 
@@ -38,6 +45,8 @@ public class VenuesApiConfiguration {
   }
 
   public void setClientSecret(String clientSecret) {
+    checkNotNull(clientSecret, "ClientSecret is not valid");
+    checkArgument(!clientSecret.isEmpty(), "ClientSecret is not valid");
     this.clientSecret = clientSecret;
   }
 
@@ -46,6 +55,8 @@ public class VenuesApiConfiguration {
   }
 
   public void setVersion(String version) {
+    checkNotNull(version, "version is not valid");
+    checkArgument(!version.isEmpty(), "version is not valid");
     this.version = version;
   }
 }

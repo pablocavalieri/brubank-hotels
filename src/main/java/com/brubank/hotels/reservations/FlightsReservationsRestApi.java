@@ -1,7 +1,8 @@
 package com.brubank.hotels.reservations;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.List;
-import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
@@ -26,8 +27,8 @@ public class FlightsReservationsRestApi {
   private FlightsReservationsRestApi(
       final RestTemplate theRestTemplate,
       final FlightsReservationsApiConfiguration theFlightsReservationsApiConfiguration) {
-    Validate.notNull(theRestTemplate, "RestTemplate instance is null");
-    Validate.notNull(
+    checkNotNull(theRestTemplate, "RestTemplate instance is null");
+    checkNotNull(
         theFlightsReservationsApiConfiguration,
         "FlightsReservationsApiConfiguration instance is null");
 
@@ -58,7 +59,7 @@ public class FlightsReservationsRestApi {
     String fetchReservationsUrl =
         flightsReservationsApiConfiguration.getHost()
             + FETCH_RESERVATIONS_ENDPOINT;
-    LOGGER.debug(String.format("Making REST call to {%s}", fetchReservationsUrl));
+    LOGGER.debug("Making REST call to {}", fetchReservationsUrl);
 
     return restTemplate.exchange(
         fetchReservationsUrl,

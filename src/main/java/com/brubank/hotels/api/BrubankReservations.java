@@ -1,9 +1,10 @@
 package com.brubank.hotels.api;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import org.apache.commons.lang3.Validate;
 
 /**
  * This class represents the Reservation entity in our application
@@ -18,8 +19,8 @@ public class BrubankReservations {
   private BrubankReservations(
       final List<Reservations> theReservations,
       final List<Hotel> theHotels) {
-    Validate.notNull(theReservations, "Reservations is null");
-    Validate.notNull(theHotels, "Hotels is null");
+    checkNotNull(theReservations, "Reservations is null");
+    checkNotNull(theHotels, "Hotels is null");
 
     reservations = theReservations;
     hotels = theHotels;

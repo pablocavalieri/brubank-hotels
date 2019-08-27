@@ -1,9 +1,11 @@
 package com.brubank.hotels.foursquare;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
@@ -26,8 +28,8 @@ public class RestConnectorVenuesApi implements VenuesApi {
   private RestConnectorVenuesApi(
       final RestTemplate theRestTemplate,
       final VenuesApiConfiguration theVenuesApiConfiguration) {
-    Validate.notNull(theRestTemplate, "RestTemplate instance is null");
-    Validate.notNull(theVenuesApiConfiguration, "VenuesApiConfiguration instance is null");
+    checkNotNull(theRestTemplate, "RestTemplate instance is null");
+    checkNotNull(theVenuesApiConfiguration, "VenuesApiConfiguration instance is null");
 
     restTemplate = theRestTemplate;
     venuesApiConfiguration = theVenuesApiConfiguration;
@@ -55,7 +57,8 @@ public class RestConnectorVenuesApi implements VenuesApi {
    * @return {@code List<Hotels>} of the Hotels in {@code theCity}
    */
   public List<Hotels> searchHotelsNearCity(final String theCity) {
-    Validate.notBlank(theCity, "The City is blank, it's not valid");
+    checkNotNull(theCity, "The City is blank, it's not valid");
+    checkArgument(!theCity.isEmpty(), "The City is blank, it's not valid");
 
     String searchHotelsInCityUrl = venuesApiConfiguration.getHost()
         + String.format(
@@ -64,7 +67,7 @@ public class RestConnectorVenuesApi implements VenuesApi {
         venuesApiConfiguration.getClientId(),
         venuesApiConfiguration.getClientSecret(),
         venuesApiConfiguration.getVersion());
-    LOGGER.debug(String.format("Making REST call to {%s}", searchHotelsInCityUrl));
+    LOGGER.debug("Making REST call to {}", searchHotelsInCityUrl);
     return Optional.ofNullable(
         restTemplate.getForObject(
             searchHotelsInCityUrl,

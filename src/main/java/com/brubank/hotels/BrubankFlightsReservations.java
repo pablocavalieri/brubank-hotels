@@ -1,5 +1,7 @@
 package com.brubank.hotels;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import com.brubank.hotels.api.BrubankReservations;
 import com.brubank.hotels.api.Destination;
 import com.brubank.hotels.api.Hotel;
@@ -10,7 +12,6 @@ import com.brubank.hotels.reservations.FlightsReservation;
 import com.brubank.hotels.reservations.FlightsReservationsRestApi;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
@@ -38,13 +39,13 @@ public class BrubankFlightsReservations {
       final BrubankFlightsReservationsRepository theBrubankFlightsReservationsRepository,
       final VenuesApi theVenuesApi) {
 
-    Validate.notNull(
+    checkNotNull(
         theFlightsReservationsRestApi,
         "FlightsReservationsRestApi instance is null");
-    Validate.notNull(
+    checkNotNull(
         theBrubankFlightsReservationsRepository,
         "BrubankFlightsReservationsRepository instance is null");
-    Validate.notNull(
+    checkNotNull(
         theVenuesApi,
         "CachedVenuesApi instance is null");
 
@@ -113,7 +114,7 @@ public class BrubankFlightsReservations {
    */
   private List<FlightsReservation> getFlightsReservationsForDestinationSortedByDate(
       final Destination theDestination) {
-    Validate.notNull(theDestination, "Destination is null");
+    checkNotNull(theDestination, "Destination is null");
 
     return brubankFlightsReservationsRepository.findAllByDestination(
         theDestination.toBrubankFlightReservationDestinationFormat(),
@@ -121,16 +122,16 @@ public class BrubankFlightsReservations {
   }
 
   /**
-   * Fetch the reservations from {@code flightsReservationsRestApi} every 5 minutes and save it to
+   * Fetch the reservations from {@code flightsReservationsRestApi} every 9 minutes and save it to
    * {@code brubankFlightsReservationsRepository}. This is needed due to the {@code
-   * flightsReservationsRestApi} discarding the reservations if not consumed
+   * flightsReservationsRestApi} discarding the reservations if not consumed after 10 minutes
    */
-  @Scheduled(fixedRate = 5 * 60 * 1000)
+  @Scheduled(fixedRate = 9 * 60 * 1000)
   public void fetchReservationsFromApi() {
     LOGGER.debug("Executing Brubank Flight Reservations retrieve from Api");
     try {
       List<FlightsReservation> reservations = flightsReservationsRestApi.getReservations();
-      LOGGER.debug(String.format("Persisting {%d} reservations", reservations.size()));
+      LOGGER.debug("Persisting {} reservations", reservations.size());
       brubankFlightsReservationsRepository.saveAll(reservations);
     } catch (Exception e) {
       LOGGER.error("Error in Brubank Flights Reservations Api", e);

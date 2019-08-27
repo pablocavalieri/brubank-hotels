@@ -1,7 +1,9 @@
 package com.brubank.hotels.api;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import com.brubank.hotels.BrubankFlightsReservations;
-import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +28,9 @@ public class ReservationsController {
   @GetMapping("/reservationsForDestination")
   public ResponseEntity<BrubankReservations> reservationsForDestination(
       final Destination theDestination) {
-    Validate.notNull(theDestination, "Destination is null");
-    Validate.notBlank(theDestination.getCity(), "Destination city not valid");
-    Validate.notBlank(theDestination.getCountry(), "Destination country not valid");
+    checkNotNull(theDestination, "Destination is null");
+    checkArgument(!theDestination.getCity().isEmpty(), "Destination city not valid");
+    checkArgument(!theDestination.getCountry().isEmpty(), "Destination country not valid");
 
     return ResponseEntity.ok(
         brubankFlightsReservations.toBrubankReservations(theDestination));

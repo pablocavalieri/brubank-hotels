@@ -1,7 +1,6 @@
 package com.brubank.hotels.api;
 
-import org.apache.commons.lang3.Validate;
-
+import static com.google.common.base.Preconditions.checkNotNull;
 public class Hotel {
 
   /** The Hotel name */
@@ -10,8 +9,8 @@ public class Hotel {
   private final HotelLocation hotelLocation;
 
   private Hotel(final HotelName theName, final HotelLocation theHotelLocation) {
-    Validate.notNull(theName, "HotelName instance is null");
-    Validate.notNull(theHotelLocation, "HotelLocation instance is null");
+    checkNotNull(theName, "HotelName instance is null");
+    checkNotNull(theHotelLocation, "HotelLocation instance is null");
 
     name = theName;
     hotelLocation = theHotelLocation;

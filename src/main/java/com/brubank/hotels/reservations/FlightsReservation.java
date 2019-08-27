@@ -9,8 +9,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -20,9 +18,6 @@ import javax.persistence.Id;
 @Entity
 public class FlightsReservation {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
   /** The creation date */
   @JsonDeserialize(using = LocalDateTimeDeserializer.class)
   @JsonSerialize(using = LocalDateTimeSerializer.class)
@@ -30,20 +25,13 @@ public class FlightsReservation {
   /** The destination */
   private String destination;
   /** The Flight reservation id */
+  @Id
   private String reservationId;
 
   /**
    * Default constructor needed by Spring injection
    */
   protected FlightsReservation() {
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
   }
 
   public LocalDateTime getDate() {
